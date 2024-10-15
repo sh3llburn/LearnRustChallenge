@@ -4,6 +4,8 @@ I found two resources very helpful in completing this task, [Command line apps i
 
 As I mentioned, when I first went through this room, I worked my way through all the tasks, but when I got to the Challenge task, and saw that to get the flag, all we needed to go was `ROT-13 -> BASE64 -> ROT-13`, I used CyberChef to get the flag and moved on.
 
+![CyberChef-IMAGE](thm-learn-rust01.png)
+Too Easy! 
 ```
  1 use base64::{engine::general_purpose, Engine as _};
  2 
