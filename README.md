@@ -3,3 +3,40 @@ This [room](https://tryhackme.com/r/room/rust) was a whirlwind introduction to R
 I found two resources very helpful in completing this task, [Command line apps in Rust](https://rust-cli.github.io/book/tutorial/setup.html), and Rust's own [The Rust Programming Language](https://doc.rust-lang.org/book/).
 
 As I mentioned, when I first went through this room, I worked my way through all the tasks, but when I got to the Challenge task, and saw that to get the flag, all we needed to go was `ROT-13 -> BASE64 -> ROT-13`, I used CyberChef to get the flag and moved on.
+
+```
+ 1 use base64::{engine::general_purpose, Engine as _};
+ 2 
+ 3 fn decode_base64(input: &str) -> String {
+ 4     let decoded_bytes = general_purpose::STANDARD.decode(input).expect("Failed to decode base64");
+ 5     String::from_utf8(decoded_bytes).expect("Failed to convert bytes to string")
+ 6 }
+ 7 
+ 8 fn rot13(input: &str) -> String {
+ 9     input
+ 10         .chars()
+ 11         .map(|c| {
+ 12             if c.is_ascii_alphabetic() {
+ 13                 let base = if c.is_ascii_lowercase() { b'a' } else { b'A' };
+ 14                 let rotated = (c as u8 - base + 13) % 26 + base;
+ 15                 rotated as char
+ 16             } else {
+ 17                 c  // Non-alphabetic characters remain unchanged
+ 18             }
+ 19         })
+ 20         .collect()
+ 21 }
+ 22 
+ 23 fn main() {
+ 24     let cipher = "M3I6r2IbMzq9";
+ 25     let encoded_string = rot13(cipher);
+ 26 
+ 27     // Decode the Base64 string and print it
+ 28     let decoded_string = decode_base64(&encoded_string);
+ 29 
+ 30     // Recover plaintext and read the flag
+ 31     let flag = rot13(&decoded_string);
+ 32     println!("Flag: {}", flag);
+ 33 }
+```
+
