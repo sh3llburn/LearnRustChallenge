@@ -6,6 +6,9 @@ As I mentioned, when I first went through this room, I worked my way through all
 
 ![CyberChef-IMAGE](thm-learn-rust01.png)
 Too Easy! 
+
+Below is the first iteration of a Rust program that decrypts the given string and returns the flag. The final version keeps the encrypted string in a file, opens the file, reads the encrypted line, and then applies ROT13 > Base64 Decode > ROT13 to get the flag.
+
 ```
  1 use base64::{engine::general_purpose, Engine as _};
  2 
@@ -41,4 +44,3 @@ Too Easy!
  32     println!("Flag: {}", flag);
  33 }
 ```
-
